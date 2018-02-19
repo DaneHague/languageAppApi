@@ -1,0 +1,11 @@
+C:\Users\daneh\source\repos\LanguageApp.API\LanguageApp.API\bin\Any CPU\Release\netcoreapp2.0\LanguageApp.API.deps.json
+C:\Users\daneh\source\repos\LanguageApp.API\LanguageApp.API\bin\Any CPU\Release\netcoreapp2.0\LanguageApp.API.runtimeconfig.json
+C:\Users\daneh\source\repos\LanguageApp.API\LanguageApp.API\bin\Any CPU\Release\netcoreapp2.0\LanguageApp.API.runtimeconfig.dev.json
+C:\Users\daneh\source\repos\LanguageApp.API\LanguageApp.API\bin\Any CPU\Release\netcoreapp2.0\LanguageApp.API.dll
+C:\Users\daneh\source\repos\LanguageApp.API\LanguageApp.API\bin\Any CPU\Release\netcoreapp2.0\LanguageApp.API.pdb
+C:\Users\daneh\source\repos\LanguageApp.API\LanguageApp.API\obj\Any CPU\Release\netcoreapp2.0\LanguageApp.API.csprojResolveAssemblyReference.cache
+C:\Users\daneh\source\repos\LanguageApp.API\LanguageApp.API\obj\Any CPU\Release\netcoreapp2.0\LanguageApp.API.csproj.CoreCompileInputs.cache
+C:\Users\daneh\source\repos\LanguageApp.API\LanguageApp.API\obj\Any CPU\Release\netcoreapp2.0\LanguageApp.API.AssemblyInfoInputs.cache
+C:\Users\daneh\source\repos\LanguageApp.API\LanguageApp.API\obj\Any CPU\Release\netcoreapp2.0\LanguageApp.API.AssemblyInfo.cs
+C:\Users\daneh\source\repos\LanguageApp.API\LanguageApp.API\obj\Any CPU\Release\netcoreapp2.0\LanguageApp.API.dll
+C:\Users\daneh\source\repos\LanguageApp.API\LanguageApp.API\obj\Any CPU\Release\netcoreapp2.0\LanguageApp.API.pdb
