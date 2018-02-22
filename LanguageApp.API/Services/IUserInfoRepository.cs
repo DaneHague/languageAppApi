@@ -1,4 +1,5 @@
 ﻿using LanguageApp.API.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,8 @@ namespace LanguageApp.API.Services
     public interface IUserInfoRepository
     {
         IEnumerable<User> GetUsers();
-        User GetUser(string Oauth2UserID);
 
-        bool UserExists(string Oauth2UserId);
+        bool UserExists(string Email);
 
         void CreateUser(User UserToCreate);
 

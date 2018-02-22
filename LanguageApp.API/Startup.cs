@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LanguageApp.API.Entities;
 using LanguageApp.API.Services;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,18 +32,19 @@ namespace LanguageApp.API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
 
             services.AddMvc();
-            services.AddDbContext<ApplicationDBContext>();
 
             var connectionString = Startup.Configuration["ConnectionString:LanguageAppDB"];
             services.AddDbContext<UserInfoContext>(o => o.UseSqlServer(connectionString));
 
             services.AddScoped<IUserInfoRepository, UserInfoRepository>();
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDBContext>()
+            services.AddIdentity<User, IdentityRole>()
                 .AddDefaultTokenProviders();
+
+            services.AddScoped<RoleManager<IdentityRole>>();
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
             services
@@ -65,11 +67,26 @@ namespace LanguageApp.API
                         ClockSkew = TimeSpan.Zero // remove delay of token when expire
                     };
                 });
+
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = "-";
+                    options.ClientSecret = "-";
+                })
+                .AddFacebook(options =>
+                {
+                    options.AppId = "-";
+                    options.AppSecret = "-";
+                });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDBContext dbContext)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserInfoContext dbContext)
         {
+            app.UseCors(builder => builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -83,6 +100,10 @@ namespace LanguageApp.API
 
             app.UseAuthentication();
             app.UseMvc();
+
+            dbContext.Database.EnsureCreated();
+
+            
 
             app.Run(async (context) =>
             {

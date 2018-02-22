@@ -14,24 +14,21 @@ namespace LanguageApp.API.Services
         {
             _context = context;
         }
-        public User GetUser(string Oauth2UserId)
-        {
-            return _context.Users.Where(u => u.Oauth2Id == Oauth2UserId).FirstOrDefault();
-        }
 
         public IEnumerable<User> GetUsers()
         {
             return _context.Users.OrderBy(u => u.LastName).ToList();
         }
 
-        public bool UserExists(string Oauth2UserId)
+        public bool UserExists(string Email)
         {
-            return _context.Users.Any(u => u.Oauth2Id == Oauth2UserId);
+            return _context.Users.Any(u => u.Email == Email);
         }
 
         public void CreateUser(User UserToCreate)
         {
             _context.Users.Add(UserToCreate);
+            _context.SaveChanges();
         }
 
         public bool Save()
