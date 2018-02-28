@@ -15,6 +15,10 @@ namespace LanguageApp.API.Services
             _context = context;
         }
 
+        public User GetUser(string Email)
+        {
+            return _context.Users.Where(u => u.Email == Email).FirstOrDefault();
+        }
         public IEnumerable<User> GetUsers()
         {
             return _context.Users.OrderBy(u => u.LastName).ToList();

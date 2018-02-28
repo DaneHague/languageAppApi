@@ -9,6 +9,8 @@ namespace LanguageApp.API.Services
 {
     public interface IUserInfoRepository
     {
+
+        User GetUser(string Email);
         IEnumerable<User> GetUsers();
 
         bool UserExists(string Email);

@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LanguageApp.API.Entities
+namespace LanguageApp.API.Models
 {
-    public class User : IdentityUser
+    public class UserProfileDto
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -67,6 +67,13 @@ namespace LanguageApp.API.Controllers
 
         }
 
+        [HttpPost("profile/test")]
+        public JsonResult UpdateProfile([FromBody] User info)
+        {
+            var updatedUserProfile = Mapper.Map<UserProfileDto>(info);
+            return Json(updatedUserProfile);
+        }
+
         [HttpGet("login/facebook")]
         public IActionResult LoginFacebook()
         {
@@ -78,11 +85,14 @@ namespace LanguageApp.API.Controllers
             return (Challenge(authenticationProperties, "Facebook"));
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpGet("secret")]
-        public string Secret()
+        [Authorize(Roles = "User")]
+        [HttpGet("profile")]
+        public JsonResult GetUserProfile()
         {
-            return ("Authorized Secret");
+            var email = User.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
+            var user = _userInfoRepository.GetUser(User.FindFirst(c => c.Type == ClaimTypes.Email)?.Value);
+            var result = Mapper.Map<UserDto>(user);
+            return Json(result);
         }
 
 
@@ -123,7 +133,8 @@ namespace LanguageApp.API.Controllers
             {
                 new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.Role, "Admin")
+                new Claim(ClaimTypes.Role, "User"),
+                new Claim(ClaimTypes.Email, User.FindFirst(c => c.Type == ClaimTypes.Email)?.Value)
 
             };
 

@@ -14,5 +14,6 @@ namespace LanguageApp.API.Entities
         {
 
         }
+
     }
 }

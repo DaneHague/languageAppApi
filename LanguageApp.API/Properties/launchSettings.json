@@ -12,7 +12,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ConnectionString:LanguageAppDB": "-",
+        "ConnectionString:LanguageAppDB": "",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "JwtKey": "SOME_RANDOM_KEY_DO_NOT_SHARE",
         "JwtIssuer": "http://localhost:58411",

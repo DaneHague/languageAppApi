@@ -32,12 +32,14 @@ namespace LanguageApp.API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Startup.Configuration["ConnectionString:LanguageAppDB"];
+            services.AddDbContext<UserInfoContext>(o => o.UseSqlServer(connectionString));
+
             services.AddCors();
 
             services.AddMvc();
 
-            var connectionString = Startup.Configuration["ConnectionString:LanguageAppDB"];
-            services.AddDbContext<UserInfoContext>(o => o.UseSqlServer(connectionString));
+            
 
             services.AddScoped<IUserInfoRepository, UserInfoRepository>();
 
@@ -71,19 +73,19 @@ namespace LanguageApp.API
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
-                    options.ClientId = "-";
-                    options.ClientSecret = "-";
+                    options.ClientId = "";
+                    options.ClientSecret = "";
                 })
                 .AddFacebook(options =>
                 {
-                    options.AppId = "-";
-                    options.AppSecret = "-";
+                    options.AppId = "";
+                    options.AppSecret = "";
                 });
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserInfoContext dbContext)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseCors(builder => builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
@@ -96,14 +98,11 @@ namespace LanguageApp.API
             {
                 cfg.CreateMap<Entities.User, Models.UserDto>();
                 cfg.CreateMap<Entities.User, Models.UserForCreationDto>();
+                cfg.CreateMap<Entities.User, Models.UserProfileDto>();
             });
 
             app.UseAuthentication();
             app.UseMvc();
-
-            dbContext.Database.EnsureCreated();
-
-            
 
             app.Run(async (context) =>
             {
